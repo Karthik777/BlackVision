@@ -6,6 +6,17 @@ if (Meteor.isClient) {
     });
 
     Template.index.events({
+        "click #upload-submit": function(event, template){
+            event.preventDefault();
+            var dataObject = //the uploaded image in base64(meteor normally handles it automatically but see how it goes)
+            Meteor.call("categorizeImages", dataObject, function(error, result) {
+                if(error){ console.log("error", error); }
+                if(result){
+                //display results
+                }
+            });
+        },
+
         'click #upload-btn' : function(){
             console.log(this);
             var about = document.getElementById('main');
