@@ -1229,18 +1229,15 @@
 				padding: 2.5em 0;
 			}
 
-				#banner .content {
-					padding: 1.5em 0.35em 3em 0.35em;
-				}
 
 				#banner ul {
-					width: 10.125em;
-					height: 18em;
+					width: 13em;
+					height: 13em;
 				}
 
 					#banner ul li img {
-						width: 10.125em;
-						height: 18em;
+						width: 13em;
+						height: 13em;
 					}
 
 		}
@@ -1333,7 +1330,7 @@
     #main {
         display: block;
     }
-    
+
     #upload-btn,
     #about-btn {
         display: none;
@@ -1342,4 +1339,38 @@
     #upload-btn.active,
     #about-btn.active {
         display: block;
+    }
+
+    .field.uploadfile {
+        position: relative;
+        overflow: hidden;
+    }
+
+    #file {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=1);
+        background-color: green;
+    }
+
+    .uploadfile label {
+        background-color: #64A9E9;
+        padding: 10px;
+        color: white;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .uploadfile label:hover {
+        -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.55);
+        -moz-box-shadow:    0px 3px 3px 0px rgba(50, 50, 50, 0.55);
+        box-shadow:         0px 3px 3px 0px rgba(50, 50, 50, 0.55);
     }
