@@ -1,0 +1,10 @@
+<head>
+    <link rel="stylesheet" href="Stylesheets/main.css">
+</head>
+<template name="ApplicationLayout">
+    {{#if isTrue}}
+        <div>
+            {{> yield}}
+        </div>
+    {{/if}}
+</template>

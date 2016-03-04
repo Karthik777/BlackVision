@@ -1,0 +1,27 @@
+.data-card{
+width:25%;
+float:left;
+margin:10px;
+}
+
+
+.selection-section
+{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.selection-section {
+  margin-left: 33%;
+  margin-right:32%;
+  text-align: center;
+  width: 35%;}
+
+
+.buttons{width:100%}
+.buttons-half{width: 35%}
+.banner{
+  margin-top: 5px;
+  padding:5px;
+  margin-bottom: 5px;
+}
