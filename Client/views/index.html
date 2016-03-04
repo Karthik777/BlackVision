@@ -1,3 +1,93 @@
 <template name="index">
-    <h1>Hello world</h1>
+
+<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Wrapper -->
+			<section id="wrapper">
+				<div class="inner">
+					<h1><b>Vision</b> By black</h1>
+                    <div class="main">
+                        <h2>Automatically classify the <b>content</b> of<br />
+                        scientific and historic image data</h2>
+                        <p>We run a suite of analytic tools and data models to identify
+                        what is actually happening inside your images. Simply upload images
+                        using the tool below or programmatically feed data to <b>our api</b>. </p>
+                        <ul class="actions">
+                            <li><a href="#" class="button special icon fa-arrow-down">Upload</a></li>
+                        </ul>
+
+                    </div>
+					<hr />
+                    <div id="upload">
+                        <h3>Upload your images</h3>
+                        <form method="post" action="#">
+                            <div class="field">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" />
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" />
+                            </div>
+                            <div class="field">
+                                <label for="department">Department</label>
+                                <div class="select-wrapper">
+                                    <select name="department" id="department">
+                                        <option value="">-</option>
+                                        <option value="sales">Sales</option>
+                                        <option value="tech">Tech Support</option>
+                                        <option value="null">/dev/null</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="message">Message</label>
+                                <textarea name="message" id="message" rows="4"></textarea>
+                            </div>
+                            <div class="field">
+                                <input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+                            </div>
+                            <div class="field">
+                                <label>But are you a robot?</label>
+                                <input type="radio" id="robot_yes" name="robot" /><label for="robot_yes">Yes</label>
+                                <input type="radio" id="robot_no" name="robot" /><label for="robot_no">No</label>
+                            </div>
+                            <ul class="actions">
+                                <li><a href="#" class="button">Get Started</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+				</div>
+				<footer>
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					</ul>
+				</footer>
+			</section>
+
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<div class="content">
+						<ul>
+							<li><img src="images/pic01.jpg" alt="" /></li>
+							<li><img src="images/pic02.jpg" alt="" /></li>
+							<li><img src="images/pic03.jpg" alt="" /></li>
+							<li><img src="images/pic04.jpg" alt="" /></li>
+							<li><img src="images/pic05.jpg" alt="" /></li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+	</div>
+
+    <!-- Scripts -->
+	<!--[if lte IE 8]><script src="javascript/ie/respond.min.js"></script><![endif]-->
+	<script src="javascript/main.js"></script>
 </template>

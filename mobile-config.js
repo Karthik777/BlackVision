@@ -5,8 +5,8 @@ App.info({
 });
 
 App.icons({
-  'android_ldpi': 'public/Icons/logo_dark.png',
-  'android_mdpi': 'public/Icons/logo_dark.png',
-  'android_hdpi': 'public/Icons/logo_dark.png',
-  'android_xhdpi': 'public/Icons/logo_dark.png'
+  'android_ldpi': 'public/images/icons/logo_dark.png',
+  'android_mdpi': 'public/images/icons/logo_dark.png',
+  'android_hdpi': 'public/images/icons/logo_dark.png',
+  'android_xhdpi': 'public/images/icons/logo_dark.png'
 });
