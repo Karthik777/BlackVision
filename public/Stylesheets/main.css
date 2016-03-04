@@ -321,7 +321,8 @@
 		outline: 0;
 		padding: 0 0.75em;
 		text-decoration: none;
-		width: 100%;
+        width: calc(100% - 28px);
+        box-sizing: content-box;
 	}
 
 		input[type="text"]:invalid,
@@ -380,10 +381,6 @@
 	input[type="email"],
 	select {
 		height: 2.75em;
-	}
-
-	textarea {
-		padding: 0.75em 1em;
 	}
 
 	input[type="checkbox"],
@@ -1326,20 +1323,23 @@
         right: -190px;
     }
 
-    #main {
-        height: auto;
-        overflow: hidden;
-    }
-
+    #main,
     #upload {
-        height: 0px;
+        display: none;
         overflow: hidden;
+        transition: height 0.6s;
     }
 
-    #upload.active {
-        height: auto;
+    #main {
+        display: block;
+    }
+    
+    #upload-btn,
+    #about-btn {
+        display: none;
     }
 
-    #main.inactive {
-        height: 0px;
+    #upload-btn.active,
+    #about-btn.active {
+        display: block;
     }

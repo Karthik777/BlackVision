@@ -82,3 +82,24 @@
 		})();
 
 })();
+
+// DOM events
+
+$(document).on('click', '#upload-btn', function(){
+    console.log(this);
+    // Close the 'about' section and disabled button
+    $(this).removeClass('active');
+    $('#about-btn').addClass('active');
+    // Open the 'upload' section and enable new button
+    $('#main').fadeOut(300);
+    $('#upload').delay(300).fadeIn(300);
+});
+
+$(document).on('click', '#about-btn', function(){
+    // Open the 'upload' section and enable new button
+    $(this).removeClass('active');
+    $('#upload-btn').addClass('active');
+    // Close the 'about' section and disabled button
+    $('#upload').fadeOut(300);
+    $('#main').delay(300).fadeIn(300);
+});

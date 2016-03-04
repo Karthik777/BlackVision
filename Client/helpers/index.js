@@ -1,34 +1,50 @@
 if (Meteor.isClient) {
+
+    // Create reactiveVar for storing base64 strings
+    Template.index.created = function() {
+        this.dataUrl = new ReactiveVar();
+    };
+
+    // Allow or disallow form submission based on file upload
     Template.index.helpers({
-        isTrue: function() {
-            return true;
+        submitDisabled : function() {
+            var state = Template.instance().dataUrl.get();
+            return (state) ? false : true;
         }
     });
 
+    // Listen to page events
     Template.index.events({
-        "click #upload-submit": function(event, template){
+        // on change of file input
+        "change input[type='file']" : function(event, template) {
+            var files=event.target.files;
+            if ( files.length === 0){
+                return;
+            }
+            var file = files[0];
+            //
+            console.log(file);
+            console.log(template.dataUrl);
+            var fileReader = new FileReader();
+            fileReader.onload = function(event){
+                var dataUrl = event.target.result;
+                template.dataUrl.set(dataUrl);
+            }
+            fileReader.readAsDataURL(file);
+        },
+        // On form submit
+        "submit" : function(event,template) {
             event.preventDefault();
-            var dataObject = //the uploaded image in base64(meteor normally handles it automatically but see how it goes)
+            //the uploaded image in base64(meteor normally handles it automatically but see how it goes)
+            var dataObject = template.dataUrl.get()
             Meteor.call("categorizeImages", dataObject, function(error, result) {
                 if(error){ console.log("error", error); }
                 if(result){
-                //display results
+                    console.log(result);
+                    //display results
                 }
             });
-        },
-
-        'click #upload-btn' : function(){
-            var about = document.getElementById('main');
-            var upload = document.getElementById('upload');
-            about.className = 'inactive';
-            upload.className = 'active';
-        },
-
-        'click #about-btn' : function(){
-            var about = document.getElementById('main');
-            var upload = document.getElementById('upload');
-            about.className = '';
-            upload.className = '';
         }
     });
+
 }
