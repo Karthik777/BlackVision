@@ -1,20 +1,18 @@
 if (Meteor.isClient) {
-
     // Create reactiveVar for storing base64 strings
-    Template.index.created = function() {
+    Template.Upload.created = function() {
         this.dataUrl = new ReactiveVar();
     };
 
     // Allow or disallow form submission based on file upload
-    Template.index.helpers({
+    Template.Upload.helpers({
         submitDisabled : function() {
             var state = Template.instance().dataUrl.get();
             return (state) ? false : true;
         }
     });
 
-    // Listen to page events
-    Template.index.events({
+    Template.Upload.events({
         // on change of file input
         "change input[type='file']" : function(event, template) {
             var files=event.target.files;
@@ -44,19 +42,11 @@ if (Meteor.isClient) {
                 if(result){
                     console.log(result);
                     //display results
+                    //will open result template
                 }
             });
         },
         // Button events
-        "click #upload-btn" : function(event,template) {
-            console.log(this);
-            // Open the 'upload' section and enable new button
-            $('#main').removeClass('active');
-            $('#upload').delay(800).queue(function (next) {
-                $(this).addClass('active');
-                next();
-            });
-        },
         "click #about-btn" : function (event,template) {
             // Close the 'about' section and disabled button
             $('#upload').removeClass('active');
@@ -66,5 +56,4 @@ if (Meteor.isClient) {
             });
         }
     });
-
 }
