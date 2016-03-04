@@ -322,7 +322,7 @@
 		padding: 0 0.75em;
 		text-decoration: none;
         width: calc(100% - 28px);
-        box-sizing: content-box;
+        box-sizing: border-box;
 	}
 
 		input[type="text"]:invalid,
@@ -1091,10 +1091,12 @@
 		background: #e6e8eb;
 		overflow: hidden;
 		width: 35vw;
+        position: relative;
 	}
 
 		#banner .inner {
 			position: relative;
+            transition: none;
 		}
 
 			#banner .inner:before, #banner .inner:after {
@@ -1113,7 +1115,7 @@
                 right: calc(100% - 4em);
 			}
 
-			#banner .inner:after {
+            #banner .inner:after {
 				background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' style='fill:%23dde0e4;' /%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%23e6e8eb;' /%3E%3C/svg%3E");
 				top: calc(100% - 0.9em);
 				right: 0em;
@@ -1133,7 +1135,7 @@
 			position: relative;
 			display: inline-block;
 			padding: 0.5em;
-			background: #ffffff;
+			background: #B7B7B7;
 			z-index: 1;
             border-radius: 15em;
 		}
@@ -1145,8 +1147,8 @@
                 position: absolute;
                 border: 4px solid #444;
                 border-radius: 50%;
-                width: calc(100% - 28px);
-                height: calc(100% - 28px);
+                width: calc(15em - 8px);
+                height: calc(15em - 8px);
                 box-sizing: content-box;
                 z-index: 99;
             }
@@ -1166,7 +1168,7 @@
 				box-shadow: inset 0 0 0 2px #e6e8eb;
 			}
 
-		#banner ul {
+		#banner .inner ul {
 			margin: 0;
 			padding: 0;
 			position: relative;
@@ -1174,6 +1176,18 @@
 			width: 15em;
 			height: 15em;
 		}
+
+
+			#banner .content ul:before {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-image: url('../images/glare.png');
+                background-size: cover;
+                z-index:5;
+            }
 
 			#banner ul:after {
 				-moz-transition: opacity 1s ease-in;
@@ -1190,6 +1204,7 @@
 				height: 100%;
 				opacity: 0;
 				z-index: 3;
+                border-radius: 50%;
 			}
 
 			#banner ul li {
@@ -1208,7 +1223,7 @@
 				opacity: 0;
 			}
 
-				#banner ul li img {
+				#banner .content ul li img {
 					display: block;
                     width: 15em;
                     height: 15em;
@@ -1226,16 +1241,25 @@
 		@media screen and (max-width: 980px) {
 
 			#banner {
-				padding: 2.5em 0;
+				padding: 2.5em 0;-
 			}
 
+                #banner .trim-outer {
+                    width: 14em;
+                    height: 14em;
+                }
 
-				#banner ul {
+                #banner .content:before {
+                    width: 13em;
+                    height: 13em;
+                }
+
+				#banner .content ul {
 					width: 13em;
 					height: 13em;
 				}
 
-					#banner ul li img {
+					#banner .content ul li img {
 						width: 13em;
 						height: 13em;
 					}
@@ -1310,10 +1334,6 @@
 		right: 0;
 	}
 
-    #page-wrapper .inner div {
-        transition: 1s all;
-    }
-
     img.handle {
         position: absolute;
         bottom: -190px;
@@ -1322,23 +1342,17 @@
 
     #main,
     #upload {
-        display: none;
+        height: 0px;
         overflow: hidden;
-        transition: height 0.6s;
+        transition: 0.3s all;
     }
 
-    #main {
-        display: block;
+    #main.active {
+        height: 500px;
     }
 
-    #upload-btn,
-    #about-btn {
-        display: none;
-    }
-
-    #upload-btn.active,
-    #about-btn.active {
-        display: block;
+    #upload.active {
+        height: 700px;
     }
 
     .field.uploadfile {
@@ -1361,16 +1375,35 @@
 
     .uploadfile label {
         background-color: #64A9E9;
+        position: relative;
         padding: 10px;
         color: white;
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
         border-radius: 3px;
         cursor: pointer;
+        z-index: 20;
+        float: left;
+        margin-bottom: none;
     }
 
     .uploadfile label:hover {
         -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.55);
         -moz-box-shadow:    0px 3px 3px 0px rgba(50, 50, 50, 0.55);
         box-shadow:         0px 3px 3px 0px rgba(50, 50, 50, 0.55);
+    }
+
+    .uploadfile p {
+        float: left;
+        line-height: 50px;
+        margin-left: 5px;
+        margin-bottom: none;
+    }
+
+    #banner .background-images {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
     }
