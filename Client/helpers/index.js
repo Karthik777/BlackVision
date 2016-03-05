@@ -21,7 +21,7 @@ if (Meteor.isClient) {
         },
         RawResults : function () {
             var data = Session.get('result');
-            return JSON.stringify(data);
+            return JSON.stringify(data.results);
         },
         GetColour : function(confidence) {
 
@@ -55,7 +55,7 @@ if (Meteor.isClient) {
                 span = $(self).parent("span"),
                 confidence = confidence * 100,
                 red = new Color(251, 91, 91),
-                white = new Color(255, 255, 255), //rgb(253, 243, 7)
+                white = new Color(253, 243, 7),
                 green = new Color(108,209,45),
                 start = green,
                 end = red;
@@ -74,8 +74,24 @@ if (Meteor.isClient) {
             var b = Interpolate(startColors.b, endColors.b, 50, confidence);
 
             return "rgb(" + r + "," + g + "," + b + ")";
-
         }
     });
 
+    Template.Results.events({
+        // Button events
+        "click #about-btn" : function (event, template) {
+            // Close the 'about' section and disabled button
+            $('#results').removeClass('active');
+            $('#main').delay(800).queue( function (next) {
+                $(this).addClass('active');
+                next();
+            });
+            Session.set('result', null);
+        },
+        "click #upload-btn" : function(event, template) {
+            $('#upload').addClass('active');
+
+            Session.set('result', null);
+        }
+    });
 }

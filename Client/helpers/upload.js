@@ -56,7 +56,6 @@ if (Meteor.isClient) {
                 if (result) {
                     var data = {'image' : dataObject, 'results' : result};
                     Session.set('result', data);
-                    template.loading.set(false);
                 }
             });
 

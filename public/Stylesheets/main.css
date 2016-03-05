@@ -90,19 +90,12 @@
 	body, input, select, textarea {
 		color: #8b8f94;
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
-		font-size: 22pt;
+        font-size: 15pt;
 		font-weight: 300;
 		letter-spacing: -0.01em;
 		line-height: 1.65;
 	}
 
-		@media screen and (max-width: 1680px) {
-
-			body, input, select, textarea {
-				font-size: 15pt;
-			}
-
-		}
 
 		@media screen and (max-width: 1280px) {
 
@@ -1257,8 +1250,8 @@
                 }
 
                 #banner .content:before {
-                    width: 13em;
-                    height: 13em;
+                    width: calc(13em - 8px);
+                    height: calc(13em - 8px);
                 }
 
 				#banner .content ul {
@@ -1348,7 +1341,8 @@
     }
 
     #main,
-    #upload {
+    #upload,
+    #results {
         height: 0px;
         overflow: hidden;
         transition: 0.3s all;
@@ -1360,7 +1354,11 @@
     }
 
     #upload.active {
-        height: 300px;
+        height: 330px;
+    }
+
+    #results.active {
+        height: auto;
     }
 
     .field.uploadfile {

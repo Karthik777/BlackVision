@@ -8,7 +8,6 @@
 				<h1><b>Vision</b> By black</h1>
                 {{> About}}
                 {{#if isResultSet}}
-                    <h1> Incoming </h1>
                     {{> Results}}
                 {{else}}
                     {{> Upload}}
@@ -25,20 +24,22 @@
 </template>
 
 <template name="Results">
-    <img class="imgbox" alt="Recognised image" src="{{ReturnImage}}" />
-    <h1>Image results:</h1>
-    <div class="tagbox">
-        {{#each Results}}
-            <div class="tag" style="background-color: {{GetColour confidence}};">{{tag}}</div>
-        {{/each}}
-    </div>
+    <div id="results" class="active">
+        <img class="imgbox" alt="Recognised image" src="{{ReturnImage}}" />
+        <h1>Image results:</h1>
+        <div class="tagbox">
+            {{#each Results}}
+                <div class="tag" style="background-color: {{GetColour confidence}};">{{tag}}</div>
+            {{/each}}
+        </div>
 
-    <h1>Raw data:</h1>
-    <pre class="resultbox">{{RawResults}}</pre>
-    <ul class="actions">
-        <li><a href="#" id="upload-btn" class="active button special icon fa-undo">Search again</a></li>
-        <li><a href="#" id="about-btn" class="button special icon fa-home">About</a></li>
-    </ul>
+        <h1>Raw data:</h1>
+        <pre class="resultbox">{{RawResults}}</pre>
+        <ul class="actions">
+            <!-- <li><a href="#" id="upload-btn" class="active button special icon fa-undo">Search again</a></li> -->
+            <li><a href="#" id="about-btn" class="button special icon fa-home">Return</a></li>
+        </ul>
+    </div>
 </template>
 
 <template name="Upload">
@@ -118,8 +119,8 @@
 <template name="Footer">
     <footer>
         <ul class="icons">
-            <li><a href="https://twitter.com/rgab0001" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="https://facebook.com/rgab0001" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="https://twitter.com/RGBA0001" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="https://www.facebook.com/RGBA0001/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
             <li><a href="https://github.com/LovelyHorse" class="icon fa-github"><span class="label">GitHub</span></a></li>
             <li><a href="mailto:contact@black.ai" class="icon fa-email"><span class="label">Email</span></a></li>
         </ul>
