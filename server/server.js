@@ -73,7 +73,6 @@ Meteor.startup(function () {
                             return "Bearer " + result_parse["access_token"];
           }
   		});
->>>>>>> 28146f9169c42f877032e853b66768f598730b30
 
     ServiceConfiguration.configurations.remove({ service: 'auth0' });
     ServiceConfiguration.configurations.insert({
