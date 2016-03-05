@@ -34,7 +34,7 @@ Meteor.startup(function () {
                               var accessToken = GetAccessToken();
                               var dataObject = {
                                 data: {
-                                  "model": "general-v1.3"
+                                  "model": "general-v1.3",
                                   "encoded_data": image,
                                       },
                                 header:{
