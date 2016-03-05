@@ -6,11 +6,12 @@ Router.configure({
 });
 
 Router.map(function(){
-    this.route('/api', function(){
-    	this.render('api');
-    });
+    this.route('/api', {data: function(){
+        return Session.get('resultset')
+			});
 
     this.route('/',function(){
     	this.render('index');
     });
+
 });

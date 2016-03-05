@@ -22,55 +22,58 @@ Meteor.startup(function () {
                 username: Meteor.user().username // username of logged in user
             });
         },
-        deleteItem: function(id){
-            Data.remove({_id:id});
-        },
-        updateItem: function(id,category,species){
-            Data.update({_id : id},{
-                $set: {name: species, category: category}
-            });
-        },
-        encodeImageData: function(imageData) {
-            var buffer = new Buffer(imageData,'binary');
-            return buffer.toString('base64');
-        },
-        categorizeImages: function(image){
-            var accessToken = Meteor.call("GetAccessToken", {});
-            console.log(Meteor.call("encodeImageData", image));
-            var dataObject = {
-                params: {
-                    model: "general-v1.3",
-                    encoded_data:{ value: Meteor.call("encodeImageData", image),
-                        options: { filename: { '0': {} }, contentType: null }
-                    }
-                },
-                headers:{
-                    Authorization: "Bearer " + accessToken
-                }
-            }
+          deleteItem: function(id){
+                        Data.remove({_id:id});
+            },
+          updateItem: function(id,category,species){
+                        Data.update({_id : id},{
+                          $set: {name: species, category: category}
+                        });
+          },
+          encodeImageData: function(imageData) {
+                           return imageData.replace('data:image/png;base64,','')
+                          var buffer = new Buffer(imageData,'binary');
+                          return buffer.toString('base64');
+                        },
+          categorizeImages: function(image){
+                              var accessToken = Meteor.call("GetAccessToken", {});
+                              var options = {
+                                formData: {
+                                  model: "general-v1.3",
+                                  encoded_data: Meteor.call("encodeImageData",image)
+                                },
+                                headers:{
+                                  authorization: accessToken,
+                                        }
+                              }
+                              var options1 = {
+                                params: {
+                                  model: "general-v1.3",
+                                  encoded_data: Meteor.call("encodeImageData",image)
+                                },
+                                headers:{
+                                  Authorization: accessToken,
+                                        }
+                              }
 
-            HTTP.call('POST',"https://api.clarifai.com/v1/tag/", dataObject, function(error, result){
-                if(error){
-                    console.log("error", error);
-                }
-                if(result){
-                    console.log(result);
-                    var result_paresed = result["results"]["result"]["tag"]["classes"]
-                    console.log(result_paresed);
-                }
-            });
-        },
-        GetAccessToken: function(){
-            var dataObject = {
-                client_id:"EsYuml4p15UAGzDQw7-v4GFDlaPpbcDJqNhDvns1",
-                client_secret:"vETGZR7XNF0v78ztIfKPuWBDDm3mEeRfTkYloKYC",
-                grant_type:"client_credentials"
-            }
-            var result = HTTP.call('POST',"https://api.clarifai.com/v1/token/", {params:dataObject});
-            var result_parse = EJSON.parse(result["content"]);
-            return result_parse["access_token"]
-        }
-    });
+                              var result = HTTP.call('POST',"https://api.clarifai.com/v1/tag/", options1);
+                              console.log(result);
+                              var resultParams = EJSON.parse(result['content']);
+                              return resultParams["results"]["result"];
+          },
+          GetAccessToken: function(){
+                            var dataObject = {
+                              client_id:"EsYuml4p15UAGzDQw7-v4GFDlaPpbcDJqNhDvns1",
+                              client_secret:"vETGZR7XNF0v78ztIfKPuWBDDm3mEeRfTkYloKYC",
+                              grant_type:"client_credentials"
+                            }
+
+                            var result = HTTP.call('POST',"https://api.clarifai.com/v1/token/", {params:dataObject});
+                            var result_parse = EJSON.parse(result["content"]);
+                            return "Bearer " + result_parse["access_token"];
+          }
+  		});
+>>>>>>> 28146f9169c42f877032e853b66768f598730b30
 
     ServiceConfiguration.configurations.remove({ service: 'auth0' });
     ServiceConfiguration.configurations.insert({
