@@ -10,8 +10,9 @@
                 {{#if isResultSet}}
                     <h1> Incoming </h1>
                     {{> Results}}
+                {{else}}
+                    {{> Upload}}
                 {{/if}}
-                {{> Upload}}
 			</div>
             {{> Footer}}
 		</section>
@@ -24,16 +25,27 @@
 </template>
 
 <template name="Results">
+    <img class="imgbox" alt="Recognised image" src="{{ReturnImage}}" />
     <h1>Image results:</h1>
-    <pre>{{isResultSet}}</pre>
-    {{#each isResultSet}}
-        <div class="tag"> {{tag}} : {{confidence}} </div>
-    {{/each}}
+    <div class="tagbox">
+        {{#each Results}}
+            <div class="tag" style="background-color: {{GetColour confidence}};">{{tag}}</div>
+        {{/each}}
+    </div>
 
+    <h1>Raw data:</h1>
+    <pre class="resultbox">{{RawResults}}</pre>
+    <ul class="actions">
+        <li><a href="#" id="upload-btn" class="active button special icon fa-undo">Search again</a></li>
+        <li><a href="#" id="about-btn" class="button special icon fa-home">About</a></li>
+    </ul>
 </template>
 
 <template name="Upload">
     <div id="upload">
+        {{#if isLoading}}
+            {{> Loading}}
+        {{/if}}
         <h3>Upload your images</h3>
         <form method="post" class="{{submitReady}}" action="#">
             <div class="field uploadfile">
@@ -47,9 +59,45 @@
             <hr />
             <ul class="actions">
                 <button type="submit" id="upload-submit" disabled={{submitDisabled}}>Upload</button>
-                <li><a href="#" id="about-btn" class="button special icon fa-chevron-left">About</a></li>
+                <li><a href="#" id="about-btn" class="button special icon fa-home">About</a></li>
             </ul>
         </form>
+    </div>
+</template>
+
+<template name="Loading">
+    <div class="loader">
+        <ul class='circle-container'>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <div class="circle-element">
+                <div class="dot"></div>
+            </div>
+        </ul>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+            </defs>
+        </svg>
     </div>
 </template>
 

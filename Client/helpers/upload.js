@@ -2,6 +2,7 @@ if (Meteor.isClient) {
     // Create reactiveVar for storing base64 strings
     Template.Upload.created = function() {
         this.dataUrl = new ReactiveVar();
+        this.loading = new ReactiveVar();
     };
 
     // Allow or disallow form submission based on file upload
@@ -13,6 +14,10 @@ if (Meteor.isClient) {
         submitReady : function() {
             var state = Template.instance().dataUrl.get();
             return (state) ? 'ready' : '';
+        },
+        isLoading : function() {
+            var isloading = Template.instance().loading.get();
+            return (isloading) ? true : false;
         }
     });
 
@@ -39,6 +44,7 @@ if (Meteor.isClient) {
         "submit" : function(event, template) {
             event.preventDefault();
             //the uploaded image in base64(meteor normally handles it automatically but see how it goes)
+            template.loading.set(true);
             var dataObject = template.dataUrl.get()
             console.log(dataObject);
             var result = Meteor.call("categorizeImages", dataObject, function (error, result) {
@@ -48,7 +54,9 @@ if (Meteor.isClient) {
                     console.log("error", error);
                 }
                 if (result) {
-                    Session.set('result', result);
+                    var data = {'image' : dataObject, 'results' : result};
+                    Session.set('result', data);
+                    template.loading.set(false);
                 }
             });
 
