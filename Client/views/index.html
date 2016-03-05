@@ -7,6 +7,9 @@
 			<div class="inner">
 				<h1><b>Vision</b> By black</h1>
                 {{> About}}
+                {{#if isResultSet}}
+                    {{> Results}}
+                {{/if}}
                 {{> Upload}}
 			</div>
             {{> Footer}}
@@ -19,10 +22,15 @@
 	<script src="javascript/main.js"></script>
 </template>
 
+<template name="result">
+    <h1>Image results:</h1>
+
+</template>
+
 <template name="Upload">
     <div id="upload">
         <h3>Upload your images</h3>
-        <form method="post" action="#">
+        <form method="post" class="{{submitReady}}" action="#">
             <div class="field">
                 <label for="name">Filename</label>
                 <input type="text" name="name" id="name" placeholer="eg. foo.tif"/>
@@ -33,17 +41,13 @@
                 <p id="filename">No file selected</p>
                 <input type="file" name="file" id="file"/>
             </div>
-            <div class="field">
-                <label id for="description">Description</label>
-                <textarea name="description" id="description" rows="4"></textarea>
-            </div>
-            <div class="field">
+            <!-- <div class="field">
                 <div class="g-recaptcha" data-sitekey="6LfgCBoTAAAAAA5pXHPZW5iaP5PtVZ7RyAZ3_Vmq"></div>
-            </div>
+            </div> -->
             <hr />
             <ul class="actions">
                 <button type="submit" id="upload-submit" disabled={{submitDisabled}}>Upload</button>
-                <li><a href="#" id="about-btn" class="button special icon fa-arrow-up">About</a></li>
+                <li><a href="#" id="about-btn" class="button special icon fa-chevron-left">About</a></li>
             </ul>
         </form>
     </div>
@@ -58,7 +62,7 @@
         using the tool below or programmatically feed data to <b>our api</b>. </p>
         <hr />
         <ul class="actions">
-            <li><a href="#" id="upload-btn" class="active button special icon fa-arrow-down">Upload</a></li>
+            <li><a href="#" id="upload-btn" class="active button special icon fa-cloud">Upload</a></li>
         </ul>
     </div>
 </template>

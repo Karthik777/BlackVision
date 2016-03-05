@@ -2,6 +2,7 @@ if (Meteor.isClient) {
     // Create reactiveVar for storing base64 strings
     Template.Upload.created = function() {
         this.dataUrl = new ReactiveVar();
+        this.results = new ReactiveVar();
     };
 
     // Allow or disallow form submission based on file upload
@@ -9,6 +10,15 @@ if (Meteor.isClient) {
         submitDisabled : function() {
             var state = Template.instance().dataUrl.get();
             return (state) ? false : true;
+        },
+        submitReady : function() {
+            var state = Template.instance().dataUrl.get();
+            return (state) ? 'ready' : '';
+        },
+        isResultSet: function() {
+            var results = Template.instance().resultDisplay.get();
+            console.log(results)
+            return true;
         }
     });
 
@@ -38,11 +48,10 @@ if (Meteor.isClient) {
             var dataObject = template.dataUrl.get()
             console.log(dataObject);
             Meteor.call("categorizeImages", dataObject, function(error, result) {
-                if(error){ console.log("error", error); }
-                if(result){
+                if(error) { console.log("error", error); }
+                if(result) {
                     console.log(result);
-                    //display results
-                    //will open result template
+                    template.results.set(result);
                 }
             });
 
@@ -57,7 +66,6 @@ if (Meteor.isClient) {
                 $(this).addClass('active');
                 next();
             });
->>>>>>> 180b2a05e8beae11a329d31060f449f4bddcdc4f:Client/helpers/upload.js
         }
     });
 }
