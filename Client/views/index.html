@@ -2,81 +2,102 @@
 
 <!-- Page Wrapper -->
 	<div id="page-wrapper">
-
 		<!-- Wrapper -->
-			<section id="wrapper">
-				<div class="inner">
-					<h1><b>Vision</b> By black</h1>
-                    <div id="main" class="active">
-                        <h2>Automatically classify the <b>content</b> of<br />
-                        scientific and historic image data</h2>
-                        <p>We run a suite of analytic tools and data models to identify
-                        what is actually happening inside your images. Simply upload images
-                        using the tool below or programmatically feed data to <b>our api</b>. </p>
-
-                    </div>
-                    <div id="upload">
-                        <h3>Upload your images</h3>
-                        <form method="post" action="#">
-                            <div class="field">
-                                <label for="name">Filename</label>
-                                <input type="text" name="name" id="name" placeholer="eg. foo.tif"/>
-                            </div>
-                            <div class="field uploadfile">
-                                <label for="file">Your image file</label>
-                                <input type="file" name="file" id="file"/>
-                            </div>
-                            <div class="field">
-                                <label for="description">Description</label>
-                                <textarea name="description" id="description" rows="4"></textarea>
-                            </div>
-                            <div class="field">
-                                <input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
-                            </div>
-                            <ul class="actions">
-                                <button type="submit" id="upload-submit" disabled={{submitDisabled}}>
-                                  Upload
-                                </button>
-                            </ul>
-                        </form>
-                    </div>
-                    <hr />
-                    <ul class="actions">
-                        <li><a href="#" id="upload-btn" class="active button special icon fa-arrow-down">Upload</a></li>
-                        <li><a href="#" id="about-btn" class="button special icon fa-arrow-up">About</a></li>
-                    </ul>
-				</div>
-				<footer>
-					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-					</ul>
-				</footer>
-			</section>
-
+		<section id="wrapper">
+			<div class="inner">
+				<h1><b>Vision</b> By black</h1>
+                {{> About}}
+                {{> Upload}}
+			</div>
+            {{> Footer}}
+		</section>
 		<!-- Banner -->
-			<section id="banner">
-				<div class="inner">
-                    <div class="trim-outer">
-                        <img class="handle" src="images/Handle.png"/>
-    					<div class="content">
-    						<ul>
-    							<li><img src="images/pic01.jpg" alt="" /></li>
-    							<li><img src="images/pic02.jpg" alt="" /></li>
-    							<li><img src="images/pic03.jpg" alt="" /></li>
-    							<li><img src="images/pic04.jpg" alt="" /></li>
-    							<li><img src="images/pic05.jpg" alt="" /></li>
-    						</ul>
-    					</div>
-                    </div>
-				</div>
-			</section>
-
+		{{> Banner}}
 	</div>
-
     <!-- Scripts -->
 	<!--[if lte IE 8]><script src="javascript/ie/respond.min.js"></script><![endif]-->
 	<script src="javascript/main.js"></script>
+</template>
+
+<template name="Upload">
+    <div id="upload">
+        <h3>Upload your images</h3>
+        <form method="post" action="#">
+            <div class="field">
+                <label for="name">Filename</label>
+                <input type="text" name="name" id="name" placeholer="eg. foo.tif"/>
+            </div>
+            <div class="field uploadfile">
+                <h3>Image to classify</h3>
+                <label for="file">Your image file</label>
+                <p id="filename">No file selected</p>
+                <input type="file" name="file" id="file"/>
+            </div>
+            <div class="field">
+                <label id for="description">Description</label>
+                <textarea name="description" id="description" rows="4"></textarea>
+            </div>
+            <div class="field">
+                <div class="g-recaptcha" data-sitekey="6LfgCBoTAAAAAA5pXHPZW5iaP5PtVZ7RyAZ3_Vmq"></div>
+            </div>
+            <hr />
+            <ul class="actions">
+                <button type="submit" id="upload-submit" disabled={{submitDisabled}}>Upload</button>
+                <li><a href="#" id="about-btn" class="button special icon fa-arrow-up">About</a></li>
+            </ul>
+        </form>
+    </div>
+</template>
+
+<template name="About">
+    <div id="main" class="active">
+        <h2>Automatically classify the <b>content</b> of<br />
+        scientific and historic image data</h2>
+        <p>We run a suite of analytic tools and data models to identify
+        what is actually happening inside your images. Simply upload images
+        using the tool below or programmatically feed data to <b>our api</b>. </p>
+        <hr />
+        <ul class="actions">
+            <li><a href="#" id="upload-btn" class="active button special icon fa-arrow-down">Upload</a></li>
+        </ul>
+    </div>
+</template>
+
+<template name="Footer">
+    <footer>
+        <ul class="icons">
+            <li><a href="https://twitter.com/rgab0001" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="https://facebook.com/rgab0001" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="https://github.com/LovelyHorse" class="icon fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:contact@black.ai" class="icon fa-email"><span class="label">Email</span></a></li>
+        </ul>
+    </footer>
+</template>
+
+<template name="Banner">
+    <section id="banner">
+        <div class="background-images">
+            <ul>
+                <li><img src="images/pic01.jpg" alt="" /></li>
+                <li><img src="images/pic02.jpg" alt="" /></li>
+                <li><img src="images/pic03.jpg" alt="" /></li>
+                <li><img src="images/pic04.jpg" alt="" /></li>
+                <li><img src="images/pic05.jpg" alt="" /></li>
+            </ul>
+        </div>
+        <div class="inner">
+            <div class="trim-outer">
+                <img class="handle" src="images/Handle.png"/>
+                <div class="content">
+                    <ul>
+                        <li><img src="images/spyglass/text01.png" alt="" /></li>
+                        <li><img src="images/spyglass/text04.png" alt="" /></li>
+                        <li><img src="images/spyglass/text02.png" alt="" /></li>
+                        <li><img src="images/spyglass/text03.png" alt="" /></li>
+                        <li><img src="images/spyglass/text05.png" alt="" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>

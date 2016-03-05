@@ -1,9 +1,3 @@
-/*
-	Split Screen by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
 (function() {
 
 	"use strict";
@@ -41,21 +35,30 @@
 				var settings = {
 
 					// Delay.
-						delay: 4000
+						delay: 6000
 
 				};
 
 			// Vars.
 				var $banner = document.querySelector('#banner'),
-					$images = document.querySelectorAll('#banner li'),
+					$sliders = document.querySelectorAll('#banner ul'),
+                    $runtime = {},
 					pos = 0, lastPos = 0;
 
 			// Main loop.
-				$images[pos].classList.add('visible');
-				$images[pos].classList.add('top');
+                $.each($sliders, function(key, value) {
+                    var images = $('li', value);
+                    console.log(images);
+                    $runtime[key] = images;
+                });
+
+				$runtime[0][pos].classList.add('visible');
+				$runtime[0][pos].classList.add('top');
+				$runtime[1][pos].classList.add('visible');
+				$runtime[1][pos].classList.add('top');
 
 				// Bail if we only have a single BG.
-					if ($images.length == 1)
+					if ($runtime[0].length == 1)
 						return;
 
 				window.setInterval(function() {
@@ -64,17 +67,22 @@
 					pos++;
 
 					// Wrap to beginning if necessary.
-						if (pos >= $images.length)
+						if (pos >= $runtime[0].length)
 							pos = 0;
 
 					// Swap top images.
-						$images[lastPos].classList.remove('top');
-						$images[pos].classList.add('visible');
-						$images[pos].classList.add('top');
+						$runtime[0][lastPos].classList.remove('top');
+						$runtime[0][pos].classList.add('visible');
+						$runtime[0][pos].classList.add('top');
+
+						$runtime[1][lastPos].classList.remove('top');
+						$runtime[1][pos].classList.add('visible');
+						$runtime[1][pos].classList.add('top');
 
 					// Hide last image after a short delay.
 						window.setTimeout(function() {
-							$images[lastPos].classList.remove('visible');
+							$runtime[0][lastPos].classList.remove('visible');
+							$runtime[1][lastPos].classList.remove('visible');
 						}, settings.delay / 2);
 
 				}, settings.delay);
@@ -84,22 +92,3 @@
 })();
 
 // DOM events
-
-$(document).on('click', '#upload-btn', function(){
-    console.log(this);
-    // Close the 'about' section and disabled button
-    $(this).removeClass('active');
-    $('#about-btn').addClass('active');
-    // Open the 'upload' section and enable new button
-    $('#main').fadeOut(300);
-    $('#upload').delay(300).fadeIn(300);
-});
-
-$(document).on('click', '#about-btn', function(){
-    // Open the 'upload' section and enable new button
-    $(this).removeClass('active');
-    $('#upload-btn').addClass('active');
-    // Close the 'about' section and disabled button
-    $('#upload').fadeOut(300);
-    $('#main').delay(300).fadeIn(300);
-});
