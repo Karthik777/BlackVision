@@ -31,33 +31,35 @@ Meteor.startup(function () {
                         });
           },
           encodeImageData: function(imageData) {
+                           return imageData.replace('data:image/png;base64,','')
                           var buffer = new Buffer(imageData,'binary');
                           return buffer.toString('base64');
                         },
           categorizeImages: function(image){
                               var accessToken = Meteor.call("GetAccessToken", {});
-                              console.log(Meteor.call("encodeImageData", image));
-                              var dataObject = {
-                                params: {
+                              var options = {
+                                formData: {
                                   model: "general-v1.3",
-                                  encoded_data:{ value: Meteor.call("encodeImageData", image),
-                                                options: { filename: { '0': {} }, contentType: null }
-                                              }},
+                                  encoded_data: Meteor.call("encodeImageData",image)
+                                },
                                 headers:{
-                                  Authorization: "Bearer " + accessToken
+                                  authorization: accessToken,
                                         }
                               }
-                            
-                              HTTP.call('POST',"https://api.clarifai.com/v1/tag/", dataObject, function(error, result){
-                                if(error){
-                                  console.log("error", error);
-                                }
-                                if(result){
-                                  console.log(result);
-                                   var result_paresed = result["results"]["result"]["tag"]["classes"]
-                                   console.log(result_paresed);
-                                }
-                              });
+                              var options1 = {
+                                params: {
+                                  model: "general-v1.3",
+                                  encoded_data: Meteor.call("encodeImageData",image)
+                                },
+                                headers:{
+                                  Authorization: accessToken,
+                                        }
+                              }
+
+                              var result = HTTP.call('POST',"https://api.clarifai.com/v1/tag/", options1);
+                              console.log(result);
+                              var resultParams = EJSON.parse(result['content']);
+                              return resultParams["results"]["result"];
           },
           GetAccessToken: function(){
                             var dataObject = {
@@ -65,9 +67,10 @@ Meteor.startup(function () {
                               client_secret:"vETGZR7XNF0v78ztIfKPuWBDDm3mEeRfTkYloKYC",
                               grant_type:"client_credentials"
                             }
+
                             var result = HTTP.call('POST',"https://api.clarifai.com/v1/token/", {params:dataObject});
                             var result_parse = EJSON.parse(result["content"]);
-                            return result_parse["access_token"]
+                            return "Bearer " + result_parse["access_token"];
           }
   		});
 
