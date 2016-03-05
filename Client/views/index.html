@@ -8,6 +8,7 @@
 				<h1><b>Vision</b> By black</h1>
                 {{> About}}
                 {{#if isResultSet}}
+                    <h1> Incoming </h1>
                     {{> Results}}
                 {{/if}}
                 {{> Upload}}
@@ -22,8 +23,12 @@
 	<script src="javascript/main.js"></script>
 </template>
 
-<template name="result">
+<template name="Results">
     <h1>Image results:</h1>
+    <pre>{{isResultSet}}</pre>
+    {{#each isResultSet}}
+        <div class="tag"> {{tag}} : {{confidence}} </div>
+    {{/each}}
 
 </template>
 
@@ -31,12 +36,7 @@
     <div id="upload">
         <h3>Upload your images</h3>
         <form method="post" class="{{submitReady}}" action="#">
-            <div class="field">
-                <label for="name">Filename</label>
-                <input type="text" name="name" id="name" placeholer="eg. foo.tif"/>
-            </div>
             <div class="field uploadfile">
-                <h3>Image to classify</h3>
                 <label for="file">Your image file</label>
                 <p id="filename">No file selected</p>
                 <input type="file" name="file" id="file"/>

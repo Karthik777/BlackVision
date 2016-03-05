@@ -33,7 +33,7 @@ Meteor.startup(function () {
           encodeImageData: function(imageData) {
                           var image = imageData.split(";base64,");
                           return image[1];
-                          
+
                         },
           categorizeImages: function(image){
                               var accessToken = Meteor.call("GetAccessToken", {});
@@ -58,8 +58,23 @@ Meteor.startup(function () {
 
                               var result = HTTP.call('POST',"https://api.clarifai.com/v1/tag/", options1);
                               console.log(result);
-                              var resultParams = EJSON.parse(result['content']);
-                              return resultParams["results"]["result"];
+                              result = EJSON.parse(result['content']);
+                              result = result.results[0].result.tag;
+                              var tags = result.classes,
+                                  conf = result.probs,
+                                  cleaned = {};
+
+                              if (tags.length == conf.length) {
+                                  for (key = 0; key < tags.length; key++) {
+                                      var value = tags[key];
+                                      cleaned[key] = {
+                                          'tag' : tags[key],
+                                          'confidence' : conf[key]
+                                      };
+                                  }
+                              }
+
+                              return cleaned;
           },
           GetAccessToken: function(){
                             var dataObject = {
