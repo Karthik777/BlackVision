@@ -17,8 +17,12 @@ if (Meteor.isClient) {
         },
         isResultSet: function() {
             var results = Template.instance().resultDisplay.get();
-            console.log(results)
-            return true;
+            var fakeresults = {
+                'tags' : results.result.tag.classes,
+                'confidence': resuts.result.tag.probs
+            };
+            console.log(fakeresults)
+            return fakeresults;
         }
     });
 
