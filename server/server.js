@@ -30,22 +30,30 @@ Meteor.startup(function () {
                           $set: {name: species, category: category}
                         });
           },
+          encodeImageData: function(imageData) {
+                          var buffer = new Buffer(imageData,'binary');
+                          return buffer.toString('base64');
+                        },
           categorizeImages: function(image){
-                              var accessToken = GetAccessToken();
+                              var accessToken = Meteor.call("GetAccessToken", {});
+                              console.log(Meteor.call("encodeImageData", image));
                               var dataObject = {
-                                data: {
-                                  "model": "general-v1.3",
-                                  "encoded_data": image,
-                                      },
-                                header:{
-                                  "Authorization":accessToken
-                                      }
+                                params: {
+                                  model: "general-v1.3",
+                                  encoded_data:{ value: Meteor.call("encodeImageData", image),
+                                                options: { filename: { '0': {} }, contentType: null }
+                                              }},
+                                headers:{
+                                  Authorization: "Bearer " + accessToken
+                                        }
                               }
-                              Meteor.http.post("https://api.clarifai.com/v1/tag/", dataObject, function(error, result){
+                            
+                              HTTP.call('POST',"https://api.clarifai.com/v1/tag/", dataObject, function(error, result){
                                 if(error){
                                   console.log("error", error);
                                 }
                                 if(result){
+                                  console.log(result);
                                    var result_paresed = result["results"]["result"]["tag"]["classes"]
                                    console.log(result_paresed);
                                 }
@@ -53,22 +61,13 @@ Meteor.startup(function () {
           },
           GetAccessToken: function(){
                             var dataObject = {
-                              "client_id":"EsYuml4p15UAGzDQw7-v4GFDlaPpbcDJqNhDvns1",
-                              "client_secret":"vETGZR7XNF0v78ztIfKPuWBDDm3mEeRfTkYloKYC",
-                              "grant_type":"client_credentials"
+                              client_id:"EsYuml4p15UAGzDQw7-v4GFDlaPpbcDJqNhDvns1",
+                              client_secret:"vETGZR7XNF0v78ztIfKPuWBDDm3mEeRfTkYloKYC",
+                              grant_type:"client_credentials"
                             }
-                            var result = HTTP.post("https://api.clarifai.com/v1/token/", dataObject, {});
-                            var result_parse = EJSON.parse(result);
-                            // HTTP.post("https://api.clarifai.com/v1/token/", dataObject, function(error, result){
-                            //   if(error){
-                            //     console.log("error", error);
-                            //   }
-                            //   if(result){
-                            //     var result = EJSON.parse(result);
-                            //      return result["access_token"]
-                            //   }
-                            // });
-                            return result["access_token"]
+                            var result = HTTP.call('POST',"https://api.clarifai.com/v1/token/", {params:dataObject});
+                            var result_parse = EJSON.parse(result["content"]);
+                            return result_parse["access_token"]
           }
   		});
 

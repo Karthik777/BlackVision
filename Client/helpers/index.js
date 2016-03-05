@@ -44,6 +44,7 @@ if (Meteor.isClient) {
                     //display results
                 }
             });
+           template.dataUrl.set(null);
         }
     });
 
