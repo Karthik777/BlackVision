@@ -31,9 +31,9 @@ Meteor.startup(function () {
                         });
           },
           encodeImageData: function(imageData) {
-                           return imageData.replace('data:image/png;base64,','')
-                          var buffer = new Buffer(imageData,'binary');
-                          return buffer.toString('base64');
+                          var image = imageData.split(";base64,");
+                          return image[1];
+                          
                         },
           categorizeImages: function(image){
                               var accessToken = Meteor.call("GetAccessToken", {});
